@@ -9,12 +9,18 @@ from shutil import copytree
 
 
 class raw_slides(ExternalTask):
+    """
+    Touch raw slides saved on S3.
+    """
     SLIDES_ROOT = r's3://cznybj/raw_slides'
     course_name = Parameter('CSCI-E29')
 
     output = TargetOutput(file_pattern=SLIDES_ROOT+r'/{task.course_name}', ext='', target_class=S3Target)
 
 class download_slides(Task):
+    """
+    Download raw slides from S3 to local.
+    """
     LOCAL_ROOT = 'raw_slides'
     course_name = Parameter('CSCI-E29')
 
@@ -38,6 +44,9 @@ class download_slides(Task):
         logger.info("-----------Finish downloading pdf's--------------")
 
 class parse_pdf_to_single_page(Task):
+    """
+    Parse the downloaded slides to single page slide files.
+    """
     LOCAL_ROOT = r'pdf.js/static/slides'
     course_name = Parameter('CSCI-E29')
     requires = Requires()

@@ -12,6 +12,9 @@ import toml
 
 
 class similarity_calc(Task):
+    """
+    Calculate similarity based on BM 25 model, and return the top 10 most related pages of each slide.
+    """
     LOCAL_ROOT = r'static/ranking_results'
     course_name = Parameter('CSCI-E29')
     requires = Requires()
@@ -30,6 +33,7 @@ class similarity_calc(Task):
             cfg_course['index'] += '_'+ self.course_name
             with atomic_write(cfg_course_path, 'w') as f:
                 f.write(toml.dumps(cfg_course))
+
         idx = metapy.index.make_inverted_index(cfg_course_path)
         ranker = metapy.index.OkapiBM25()
         top_k = 10

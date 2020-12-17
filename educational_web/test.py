@@ -9,10 +9,16 @@ from luigi import LocalTarget, build
 
 
 class testEducationalWeb(TestCase):
+    """
+    Class to test functions in educational_web.
+    """
     source_folder = 'TEST-COURSE'
 
     @classmethod
     def setUpClass(cls):
+        """
+        Create 2-page toy pdf's as source input. Override the target to local.
+        """
         os.mkdir(cls.source_folder)
         pdf = FPDF()
         pdf.add_page()
@@ -27,6 +33,9 @@ class testEducationalWeb(TestCase):
 
     @classmethod
     def tearDownClass(cls):
+        """
+        Delete generated folders.
+        """
         folders_to_remove = [cls.source_folder,
                              os.path.join('raw_slides', cls.source_folder),
                              os.path.join(r'pdf.js/static/slides', cls.source_folder),

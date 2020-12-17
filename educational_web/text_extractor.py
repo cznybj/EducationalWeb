@@ -6,11 +6,13 @@ import textract
 import metapy
 import re
 import os
-# from pathlib import Path
 import logging
 import glob
 
 def tokenizer(str):
+    """
+    Given a string, cut it into list of words, and apply several rules to tokenize them.
+    """
     doc = metapy.index.Document()
     doc.content(str)
     tok = metapy.analyzers.ICUTokenizer(suppress_tags=True)
@@ -22,6 +24,9 @@ def tokenizer(str):
     return ' '.join([s for s in tok if s])+'\n'
 
 class extract_text(Task):
+    """
+    Extract the text information from each page of slides
+    """
     LOCAL_ROOT = r'slides'
     course_name = Parameter('CSCI-E29')
     requires = Requires()

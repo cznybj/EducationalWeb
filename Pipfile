@@ -8,16 +8,18 @@ elasticsearch = "*"
 metapy = "*"
 numpy = "*"
 pytoml = "*"
+toml = '*'
 Flask = "*"
 Flask-SocketIO = "*"
 luigi = "*"
 dask = {extras = ["dataframe"], version = "*"}
 pandas = '*'
+csci-utils = {editable = true, git = "https://github.com/csci-e-29/2020fa-csci-utils-cznybj"}
+textract = "*"
+PyPDF2 = "*"
+boto3 = '*'
 
 [dev-packages]
-csci-utils = {editable = true, git = "https://github.com/csci-e-29/2020fa-csci-utils-cznybj"}
-PyPDF2 = "*"
-textract = "*"
 pytest = "*"
 pytest-cov = "*"
 pytest-runner = "*"
