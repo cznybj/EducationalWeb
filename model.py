@@ -10,7 +10,7 @@ from ranker import *
 main_path = os.path.dirname(os.path.realpath(__file__))
 static_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),'static')
 slides_path = os.path.join(main_path,'pdf.js/static/slides')
-related_slides_path = os.path.join(static_path,'ranking_results.csv')
+related_slides_path = os.path.join(static_path,'ranking_results/CSCI-E29/0.part')
 vocab_path = os.path.join(static_path,'tf_idf_outputs','vocabulary_list.p')
 tfidfs_path = os.path.join(static_path,'tf_idf_outputs','normalized_tfidfs.npy')
 title_tfidfs_path =  os.path.join(static_path,'tf_idf_outputs','normalized_title_tfidfs.npy')
@@ -19,7 +19,8 @@ paras_folder = os.path.join(main_path,'para_idx_data')
 cfg = os.path.join(main_path,'para_idx_data','config.toml')
 
 related_dict = {}
-slide_names = open(os.path.join(static_path,'slide_names2.txt'), 'r').readlines()
+slide_names = open(r'slides_CSCI-E29/slides_CSCI-E29.dat.labels', 'r').readlines()
+# slide_names = open(os.path.join(static_path,'slide_names.txt'), 'r').readlines()
 slide_names = [name.strip() for name in slide_names]
 slide_titles = io.open(os.path.join(static_path,'slide_titles.txt'), 'r', encoding='utf-8').readlines()
 slide_titles = [t.strip() for t in slide_titles]
@@ -121,7 +122,7 @@ def get_course_names():
     course_names = sorted(os.listdir(slides_path))
     cn_cpy = list(course_names)
     for cn in cn_cpy:
-        if cn!='cs-410':
+        if cn!='CSCI-E29':#'cs-410':
             course_names.remove(cn)
     num_course = len(course_names)
     return course_names,num_course
@@ -143,7 +144,7 @@ def load_related_slides():
                     break
             name_comp = pdf_name.split('----')
             course_name = name_comp[0]
-            if course_name != 'cs-410':
+            if course_name != 'CSCI-E29':#'cs-410':
                 continue
             lec_name ='----'.join(name_comp[1:-1])
             if os.path.exists(os.path.join(slides_path,course_name,lec_name,pdf_name)):
@@ -279,22 +280,22 @@ def get_search_results(search):
     lec_names = []
     for r in top_docs:
 
-            comp = r.split('##')
-            
-            lectures = sort_slide_names(os.listdir(os.path.join(slides_path, comp[0])))
-            lname = '----'.join(comp[1:-1])
-            try:
-                lnos.append(lectures.index(lname))
-            except ValueError: #not an "actual" slide
-                continue
+        comp = r.split('##')
 
-            if len(results) < 10:
-                disp_strs.append(' '.join(comp[0].replace('_','-').split('-')).title() + ' : ' + trim_name(' '.join(comp[-2].replace('.txt','').replace('_','-').split('-')).title() )+ ', ' + ' '.join(comp[-1].replace('.pdf','').split('-')).title())
-                course_names.append(comp[0])
-                lec_names.append(lname)
-            
-                results.append(r)
-                snippets.append(get_snippet_sentences(r, search))
+        lectures = sort_slide_names(os.listdir(os.path.join(slides_path, comp[0])))
+        lname = '----'.join(comp[1:-1])
+        try:
+            lnos.append(lectures.index(lname))
+        except ValueError: #not an "actual" slide
+            continue
+
+        if len(results) < 10:
+            disp_strs.append(' '.join(comp[0].replace('_','-').split('-')).title() + ' : ' + trim_name(' '.join(comp[-2].replace('.txt','').replace('_','-').split('-')).title() )+ ', ' + ' '.join(comp[-1].replace('.pdf','').split('-')).title())
+            course_names.append(comp[0])
+            lec_names.append(lname)
+
+            results.append(r)
+            snippets.append(get_snippet_sentences(r, search))
         
     for x in range(len(results)):
         results[x] = results[x].replace('##', '----') + '.pdf'
