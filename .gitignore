@@ -1,0 +1,15 @@
+/idx/
+/log/log.txt
+/.env
+/Pipfile.lock
+/pdf.js/static/slides/CSCI-E29/
+/raw_slides/CSCI-E29/
+/static/ranking_results/CSCI-E29/
+/slides_CSCI-E29/
+/pdf.js/node_modules/
+/.idea
+/.coverage
+/__pycache__
+/idx_*/
+/node_modules/
+/static/tf_idf_outputs/
