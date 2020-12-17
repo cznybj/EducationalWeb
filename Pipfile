@@ -1,0 +1,27 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+elasticsearch = "*"
+metapy = "*"
+numpy = "*"
+pytoml = "*"
+Flask = "*"
+Flask-SocketIO = "*"
+luigi = "*"
+dask = {extras = ["dataframe"], version = "*"}
+pandas = '*'
+
+[dev-packages]
+csci-utils = {editable = true, git = "https://github.com/csci-e-29/2020fa-csci-utils-cznybj"}
+PyPDF2 = "*"
+textract = "*"
+pytest = "*"
+pytest-cov = "*"
+pytest-runner = "*"
+fpdf = '*'
+
+[requires]
+python_version = "3.7"
