@@ -15,12 +15,14 @@ def gendata(idx_dict):
 def main():
 	es = Elasticsearch()
 	cnt=[]
-	with io.open('./slides/slides.dat','r',encoding='utf-8') as f:
+	with open('slides_CSCI-E29/slides_CSCI-E29.dat', 'r') as f:
+    # with io.open('./slides/slides.dat', 'r', encoding='utf-8') as f:
 		for l in f.readlines():
 			cnt.append(l.strip())
 
 	lab = []
-	with io.open('./slides/slides.dat.labels','r', encoding="utf-8") as f:
+	with open('slides_CSCI-E29/slides_CSCI-E29.dat.labels', 'r') as f:
+    # with io.open('./slides/slides.dat.labels', 'r', encoding="utf-8") as f:
 		for l in f.readlines():
 			lab.append(l[:-1])
 	print (len(lab),len(cnt))
